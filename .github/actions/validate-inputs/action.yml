@@ -1,0 +1,29 @@
+name: 'Validate Inputs'
+description: 'Validate and process various input types'
+author: 'Training Team'
+
+inputs:
+  environment:
+    description: 'Deployment environment'
+    required: true
+  version:
+    description: 'Version number (semver format)'
+    required: true
+  port:
+    description: 'Port number (1-65535)'
+    required: false
+    default: '8080'
+  enable-ssl:
+    description: 'Enable SSL (true/false)'
+    required: false
+    default: 'true'
+
+outputs:
+  validated:
+    description: 'Whether all inputs are valid'
+  config:
+    description: 'JSON configuration object'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
