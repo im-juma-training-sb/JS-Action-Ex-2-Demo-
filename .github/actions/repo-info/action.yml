@@ -1,0 +1,24 @@
+name: 'Repository Info'
+description: 'Get repository information and statistics'
+author: 'Training Team'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+  include-collaborators:
+    description: 'Include collaborator count'
+    required: false
+    default: 'false'
+
+outputs:
+  repo-name:
+    description: 'Repository name'
+  stars:
+    description: 'Number of stars'
+  open-issues:
+    description: 'Number of open issues'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
