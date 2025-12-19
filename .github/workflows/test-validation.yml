@@ -1,0 +1,39 @@
+name: Test Input Validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      version:
+        description: 'Version (semver)'
+        required: true
+        default: '1.0.0'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate inputs
+        id: validate
+        uses: ./.github/actions/validate-inputs
+        with:
+          environment: ${{ inputs.environment }}
+          version: ${{ inputs.version }}
+          port: '3000'
+          enable-ssl: 'true'
+      
+      - name: Show configuration
+        if: steps.validate.outputs.validated == 'true'
+        run: |
+          echo "Configuration:"
+          echo '${{ steps.validate.outputs.config }}' | jq .
