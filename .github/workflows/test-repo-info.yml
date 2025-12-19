@@ -13,7 +13,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: .github/actions/repo-info
+        working-directory: ./.github/actions/repo-info
         
       - uses: actions/checkout@v4
       
