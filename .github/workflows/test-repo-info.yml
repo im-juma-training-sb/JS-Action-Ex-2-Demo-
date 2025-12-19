@@ -1,0 +1,26 @@
+name: Test Repo Info Action
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  get-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Get repository info
+        id: repo-info
+        uses: ./.github/actions/repo-info
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          include-collaborators: 'true'
+      
+      - name: Display info
+        run: |
+          echo "Repository: ${{ steps.repo-info.outputs.repo-name }}"
+          echo "Stars: ${{ steps.repo-info.outputs.stars }}"
+          echo "Open Issues: ${{ steps.repo-info.outputs.open-issues }}"
